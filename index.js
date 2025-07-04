@@ -33,12 +33,17 @@ const upload = multer({storage});
 //Serve uploaded files staticaly 
 app.use('/uploads',express.static('uploads'));
 
-app.post("/ss", upload.single('file'), (req, res) => {
+app.post("/ss", upload.single("file"), (req, res) => {
 	let sql = "insert into student values(?,?,?,?)";
-	let data = [req.body.rno, req.body.name, req.body.marks, req.file.filename];
-	con.query(sql, data,(error, result) => {
-		if(error)	res.send(error);
-		else		res.send(result);
+	let data = [req.body.rno, req.body.name, req.body.marks, req.file?.filename];
+
+	con.query(sql, data, (error, result) => {
+		if (error) {
+			console.error("Error inserting record:", error); // ✅ log it
+			res.status(500).send(error);
+		} else {
+			res.send(result);
+		}
 	});
 });
 
