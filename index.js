@@ -60,4 +60,7 @@ app.delete("/ds", (req,res) => {
 	});
 });
 
-app.listen(9000, () => {console.log("ready to sereve @9000");});
+const PORT = process.env.PORT || 9000;
+app.listen(PORT, () => {
+	console.log(`ready to serve @${PORT}`);
+});
